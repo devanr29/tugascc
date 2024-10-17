@@ -15,7 +15,11 @@ SUPER_ADMIN_PASSWORD = "112233"  # Replace with your Super Admin password
 def login_with_email_password(email, password):
     try:
         user = auth.get_user_by_email(email)
-        return user
+        # Validate password
+        if auth.verify_password(email, password):  # Assuming you have a way to verify passwords
+            return user
+        else:
+            return None
     except firebase_admin.auth.UserNotFoundError:
         return None
 
